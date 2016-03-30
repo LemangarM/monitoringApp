@@ -10,144 +10,13 @@ if ($logoutValue == 1) {
     $_SESSION['connect'] = 0;
 }
 if ($_SESSION['connect'] == 1) {
+    ?>
+    <?php
 
     function __autoload($class_name)
     {
         include $class_name . '.php';
     }
-
-    // Install & uninstall & upgrade line chart array
-    $date = array();
-    $install_android = array();
-    $install_ios = array();
-    $uninstall = array();
-    $upgrade = array();
-    
-
-    // Visitors bar chart array
-    $date_visitors = array();
-    $visitors_android = array();
-    $visitors_ios = array();
-
-    // Notes line chart array
-    $date_notes = array();
-    $notes_android = array();
-    $notes_android_total = array();
-    $notes_ios = array();
-    
-
-    /*
-     * Install & uninstall & upgrade line chart
-     */
-    if (filter_input(INPUT_GET, 'id_app')) {
-        $chart_sales_android = Models\Tables\Charts::getSalesAndroid(filter_input(INPUT_GET, 'id_app'));
-        $chart_sales_ios = Models\Tables\Charts::getSalesIos(filter_input(INPUT_GET, 'id_app'));
-    } else {
-        $chart_sales_android = Models\Tables\Charts::getSalesAndroid();
-        $chart_sales_ios = Models\Tables\Charts::getSalesIos();
-    }
-
-    foreach ($chart_sales_android as $data) {
-        array_push($date, $data->DateMeasure);
-        array_push($install_android, $data->Unites);
-        array_push($uninstall, $data->Daily_uninstall);
-        array_push($upgrade, $data->Daily_upgrade);
-    }
-
-    foreach ($chart_sales_ios as $data) {
-        array_push($install_ios, $data->Unites);
-    }
-
-    //convert Date Format to month Name and Year
-    $dateMa = array();
-    $convertDate = array();
-    $monthday = array();
-    for ($i = 0; $i < count($chart_sales_android); $i++) {
-        $convertDate = strtotime($chart_sales_android[$i]->DateMeasure);
-        $dateMa = date('d-M', $convertDate);
-        array_push($monthday, $dateMa);
-    }
-
-    // inverser l'ordre des éléments
-
-    $date = array_reverse($monthday);
-    $install_android = array_reverse($install_android);
-    $install_ios = array_reverse($install_ios);
-    $uninstall = array_reverse($uninstall);
-    $upgrade = array_reverse($upgrade);
-
-    /*
-     * Visitors bar chart
-     */
-    if (filter_input(INPUT_GET, 'id_app')) {
-        $chart_visitors_android = \Models\Tables\Charts::getVisitorsAndroid(filter_input(INPUT_GET, 'id_app'));
-        $chart_visitors_ios = Models\Tables\Charts::getVisitorsIos(filter_input(INPUT_GET, 'id_app'));
-    } else {
-        $chart_visitors_android = \Models\Tables\Charts::getVisitorsAndroid();
-        $chart_visitors_ios = Models\Tables\Charts::getVisitorsIos();
-    }
-
-    foreach ($chart_visitors_android as $data) {
-        array_push($visitors_android, $data->Unites);
-        array_push($date_visitors, $data->DateMeasure);
-    }
-
-    foreach ($chart_visitors_ios as $data) {
-        array_push($visitors_ios, $data->Unites);
-    }
-
-    //convert Date Format to month Name and Year
-    $dateM = array();
-    $convertDate = array();
-    $month = array();
-    for ($i = 0; $i < count($chart_visitors_android); $i++) {
-        $convertDate = strtotime($chart_visitors_android[$i]->DateMeasure);
-        $dateM = date('M', $convertDate);
-        array_push($month, $dateM);
-    }
-
-    $visitors_android = array_reverse($visitors_android);
-    $visitors_ios = array_reverse($visitors_ios);
-    $date_visitors = array_reverse($month);
-
-
-    /*
-     * Notes line chart
-     */
-    if (filter_input(INPUT_GET, 'id_app')) {
-        $chart_notes_android = \Models\Tables\Charts::getNotesAndroid(filter_input(INPUT_GET, 'id_app'));
-        $chart_notes_ios = Models\Tables\Charts::getNotesIos(filter_input(INPUT_GET, 'id_app'));
-    } else {
-        $chart_notes_android = \Models\Tables\Charts::getNotesAndroid();
-        $chart_notes_ios = Models\Tables\Charts::getNotesIos();
-    }
-    foreach ($chart_notes_android as $data) {
-        array_push($date_notes, $data->DateMeasure);
-        array_push($notes_android, $data->Daily_Average_Rating);
-        array_push($notes_android_total, $data->Total_Average_Rating);
-    }
-
-    foreach ($chart_notes_ios as $data) {
-        array_push($notes_ios, $data->Total_Average_Rating);
-    }
-
-    //convert Date Format to month Name and Year
-    $date_notes = array();
-    $convertDate = array();
-    $monthday = array();
-
-    for ($i = 0; $i < count($chart_notes_android); $i++) {
-        $convertDate = strtotime($chart_notes_android[$i]->DateMeasure);
-        $date_notes = date('d-M', $convertDate);
-        array_push($monthday, $date_notes);
-    }
-
-    // inverser l'ordre des éléments
-    $date_notes = array_reverse($monthday);
-    $notes_android = array_reverse($notes_android);
-    $notes_android_total = array_reverse($notes_android_total);
-    $notes_ios = array_reverse($notes_ios);
-    
     ?>
     <!DOCTYPE html>
     <html>
@@ -207,12 +76,12 @@ if ($_SESSION['connect'] == 1) {
                 <?php } else { ?>
                     <?php foreach (Models\Tables\Charts::appName() as $data) : ?>
                         <div class="form-group">
-                            <img src="images/<?php echo $data->appName ?>.png" id="img">
+                            <img src="images/B.tv mobile.png" id="img">
                         </div>
                         <div class="entity-name" itemprop="name"><?php echo $data->appName ?></div>
                     <?php endforeach; ?>
                 <?php } ?>
-                <!--<li role="presentation" class="divider" id="divider"></li>-->
+                        <li role="presentation" class="divider" id="divider"></li>
 
                 <ul class="nav menu">
                     <li><a href="index.php"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg> Barometètre</a></li>
@@ -334,6 +203,7 @@ if ($_SESSION['connect'] == 1) {
                     <div class="col-md-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">Notes</div>
+
                             <div class="panel-body">
                                 <div class="canvas-wrapper">
                                     <canvas class="main-chart" id="notes-chart" height="300" width="600"></canvas>
@@ -367,6 +237,142 @@ if ($_SESSION['connect'] == 1) {
                     </div>
                 </div><!--/.row-->
             </div><!--/.main-->
+
+            <!--======================================================= PREPARATION DE LA DATA ==============================================================-->
+            <?php
+            // Install & uninstall & upgrade line chart array
+            $date = array();
+            $install_android = array();
+            $install_ios = array();
+            $uninstall = array();
+            $upgrade = array();
+
+            // Visitors bar chart array
+            $date_visitors = array();
+            $visitors_android = array();
+            $visitors_ios = array();
+
+            // Notes line chart array
+            $date_notes = array();
+            $notes_android = array();
+            $notes_android_total = array();
+            $notes_ios = array();
+
+            /*
+             * Install & uninstall & upgrade line chart
+             */
+            if (filter_input(INPUT_GET, 'id_app')) {
+                $chart_sales_android = Models\Tables\Charts::getSalesAndroid(filter_input(INPUT_GET, 'id_app'));
+                $chart_sales_ios = Models\Tables\Charts::getSalesIos(filter_input(INPUT_GET, 'id_app'));
+            } else {
+                $chart_sales_android = Models\Tables\Charts::getSalesAndroid();
+                $chart_sales_ios = Models\Tables\Charts::getSalesIos();
+            }
+
+
+
+
+            foreach ($chart_sales_android as $data) {
+                array_push($date, $data->DateMeasure);
+                array_push($install_android, $data->Unites);
+                array_push($uninstall, $data->Daily_uninstall);
+                array_push($upgrade, $data->Daily_upgrade);
+            }
+
+            foreach ($chart_sales_ios as $data) {
+                array_push($install_ios, $data->Unites);
+            }
+
+            //convert Date Format to month Name and Year
+            $dateMa = array();
+            $convertDate = array();
+            $monthday = array();
+            for ($i = 0; $i < count($chart_sales_android); $i++) {
+                $convertDate = strtotime($chart_sales_android[$i]->DateMeasure);
+                $dateMa = date('d-M', $convertDate);
+                array_push($monthday, $dateMa);
+            }
+
+            // inverser l'ordre des éléments
+
+            $date = array_reverse($monthday);
+            $install_android = array_reverse($install_android);
+            $install_ios = array_reverse($install_ios);
+            $uninstall = array_reverse($uninstall);
+            $upgrade = array_reverse($upgrade);
+
+            /*
+             * Visitors bar chart
+             */
+            if (filter_input(INPUT_GET, 'id_app')) {
+                $chart_visitors_android = \Models\Tables\Charts::getVisitorsAndroid(filter_input(INPUT_GET, 'id_app'));
+                $chart_visitors_ios = Models\Tables\Charts::getVisitorsIos(filter_input(INPUT_GET, 'id_app'));
+            } else {
+                $chart_visitors_android = \Models\Tables\Charts::getVisitorsAndroid();
+                $chart_visitors_ios = Models\Tables\Charts::getVisitorsIos();
+            }
+
+            foreach ($chart_visitors_android as $data) {
+                array_push($visitors_android, $data->Unites);
+                array_push($date_visitors, $data->DateMeasure);
+            }
+
+            foreach ($chart_visitors_ios as $data) {
+                array_push($visitors_ios, $data->Unites);
+            }
+
+            //convert Date Format to month Name and Year
+            $dateM = array();
+            $convertDate = array();
+            $month = array();
+            for ($i = 0; $i < count($chart_visitors_android); $i++) {
+                $convertDate = strtotime($chart_visitors_android[$i]->DateMeasure);
+                $dateM = date('M', $convertDate);
+                array_push($month, $dateM);
+            }
+
+            $visitors_android = array_reverse($visitors_android);
+            $visitors_ios = array_reverse($visitors_ios);
+            $date_visitors = array_reverse($month);
+
+
+            /*
+             * Notes line chart
+             */
+            if (filter_input(INPUT_GET, 'id_app')) {
+                $chart_notes_android = \Models\Tables\Charts::getNotesAndroid(filter_input(INPUT_GET, 'id_app'));
+                $chart_notes_ios = Models\Tables\Charts::getNotesIos(filter_input(INPUT_GET, 'id_app'));
+            } else {
+                $chart_notes_android = \Models\Tables\Charts::getNotesAndroid();
+                $chart_notes_ios = Models\Tables\Charts::getNotesIos();
+            }
+            foreach ($chart_notes_android as $data) {
+                array_push($date_notes, $data->DateMeasure);
+                array_push($notes_android, $data->Daily_Average_Rating);
+                array_push($notes_android_total, $data->Total_Average_Rating);
+            }
+
+            foreach ($chart_notes_ios as $data) {
+                array_push($notes_ios, $data->Total_Average_Rating);
+            }
+
+            //convert Date Format to month Name and Year
+            $date_notes = array();
+            $convertDate = array();
+            $monthday = array();
+
+            for ($i = 0; $i < count($chart_notes_android); $i++) {
+                $convertDate = strtotime($chart_notes_android[$i]->DateMeasure);
+                $date_notes = date('d-M', $convertDate);
+                array_push($monthday, $date_notes);
+            }
+
+            // inverser l'ordre des éléments
+            $date_notes = array_reverse($monthday);
+            $notes_android = array_reverse($notes_android);
+            $notes_android_total = array_reverse($notes_android_total);
+            $notes_ios = array_reverse($notes_ios);
+            ?>
 
             <!--============================================================= CHART DATA =======================================================================-->
 

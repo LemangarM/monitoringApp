@@ -1,0 +1,57 @@
+/*Charts*/
+table#infos td{
+    color: rgb(47, 75, 102);
+    font-weight: 500;
+    font-size: 13px;
+    text-align: center;
+}
+
+table#infos th{
+    color: rgb(47, 75, 102);
+    font-weight: 700;
+    text-align: center;
+}
+
+#btn-app {
+    bottom: 0px;
+    position: absolute;
+    background-color: rgb(6, 50, 90);
+    border-color: rgb(0, 0, 0);
+}
+
+.form-group{
+    text-align: center;
+    position: relative;
+    top: 10px;
+}
+
+.form-group img{
+    border-radius: 16px;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+    width: 80px;
+}
+
+.entity-name {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    line-height: 20px;
+    color: rgb(153, 153, 153);
+    padding: 2px 5px 0px;
+    text-align: center;
+}
+
+.divider#divider{
+    border-bottom: 1px solid rgb(238, 238, 238);
+}
+
+.col-md-2#button-app{
+    height: 43px;
+}
+
+.col-lg-12#list{
+    margin-left: -30px;
+    float: right;
+    width: 450px;
+    margin-top: -15px;
+}
